@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<PolicySet
+        xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        PolicyCombiningAlgId="urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:first-applicable"
+        PolicySetId="rest-endpoint"
+        Version="1.0"
+        >
+    <Target></Target>
+    <PolicyIdReference>rest-endpoint-policy</PolicyIdReference>
+</PolicySet>   

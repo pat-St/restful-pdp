@@ -1,10 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <PolicySet xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	PolicySetId="root" Version="0.1.0"
-	PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-unless-permit">
-	<Target />
-	<Policy RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit" PolicyId="permit-all" Version="0.1.0">
-		<Target />
-		<Rule Effect="Permit" RuleId="permit-all" />
-	</Policy>
+           PolicySetId="root" Version="0.1.0"
+           PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-unless-permit">
+    <Target/>
+    <Policy xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            PolicyId="root"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable"
+            Version="0.1.0">
+        <Description>Handle REST Service requests</Description>
+        <Target>
+            <!--<AnyOf>
+                <AllOf>
+                </AllOf>
+            </AnyOf>-->
+        </Target>
+        <Rule Effect="Permit" RuleId="rest-endpoint-rule-1">
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</AttributeValue>
+                            <AttributeDesignator MustBePresent="false"
+                                                 Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
+                                                 AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
+                                                 DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                        </Match>
+                        <!-- <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/hello</AttributeValue>
+                            <AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                        </Match> -->
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/hello</AttributeValue>
+                            <AttributeDesignator MustBePresent="true"
+                                    Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                    AttributeId="urn:thales:xacml:2.0:resource:sub-resource-id"
+                                    DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <!-- <Condition> -->
+            <!-- FROM https://github.com/FIWARE/tutorials.XACML-Access-Rules/blob/2328209d6f61f6fdca8edd960a3da10ecddcc785/authzforce/domains/gQqnLOnIEeiBFQJCrBIBDA/policies/ZjgxOTRhZjUtOGEwNy00ODZhLTk1ODEtYzFmMDVkMDU0ODNj/1.xml at 22.04.2022-->
+            <!-- <Apply FunctionId="urn:oasis:names:tc:xacml:3.0:function:any-of"> -->
+            <!-- <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal" /> -->
+            <!-- <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">USER</AttributeValue> -->
+            <!-- <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"></AttributeDesignator> -->
+            <!-- </Apply> -->
+            <!-- </Condition> -->
+        </Rule>
+        <Rule Effect="Deny" RuleId="rest-endpoint-rule-2"></Rule>
+    </Policy>
 </PolicySet>

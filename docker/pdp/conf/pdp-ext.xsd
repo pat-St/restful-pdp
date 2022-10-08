@@ -6,4 +6,5 @@
 		</xs:documentation>
 	</xs:annotation>
 	<!-- Do not specify schema locations here. Define the schema locations in the XML catalog instead (see file 'catalog.xml'). -->
+	<xs:import namespace="http://authzforce.github.io/core/xmlns/test/3" />
 </xs:schema>

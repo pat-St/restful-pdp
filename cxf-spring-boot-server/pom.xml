@@ -117,7 +117,7 @@
 					<cveValidForHours>24</cveValidForHours>
 					<!-- The plugin has numerous issues with version matching, which triggers false positives so we need a "suppresion" file for those. More info: https://github.com/jeremylong/DependencyCheck/issues -->
 					<suppressionFile>owasp-dependency-check-suppression.xml</suppressionFile>
-					<failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+					<failBuildOnAnyVulnerability>false</failBuildOnAnyVulnerability>
 				</configuration>
 				<executions>
 					<execution>

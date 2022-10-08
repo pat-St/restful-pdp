@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pdp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://authzforce.github.io/core/xmlns/pdp/8" version="8.1" maxVariableRefDepth="10" maxPolicyRefDepth="10"
 	strictAttributeIssuerMatch="false">
+    <attributeProvider
+            id="test"
+            xmlns:test="http://authzforce.github.io/core/xmlns/test/3"
+        	xsi:type="test:DBAttributeProviderDescriptor"
+        	xmlns:xacml="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17">
+        <xacml:Attributes Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+            <xacml:Attribute AttributeId="trust" IncludeInResult="false">
+				<xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer"></xacml:AttributeValue>
+            </xacml:Attribute>
+        </xacml:Attributes>
+		<xacml:Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment">
+			<xacml:Attribute AttributeId="uconphase" IncludeInResult="false">
+				<xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"></xacml:AttributeValue>
+			</xacml:Attribute>
+		</xacml:Attributes>
+    </attributeProvider>
 	<policyProvider id="rootPolicyProvider" xsi:type="StaticPolicyProvider">
 		<policyLocation>${PARENT_DIR}/policies/*.xml</policyLocation>
 	</policyProvider>
 	<!-- Must match the Policy(Set)Id of one of the Policies/PolicySets provided by the 'policyProvider', the one with which the PDP starts the evaluation (root policy).  -->
-	<rootPolicyRef>permit-all</rootPolicyRef>
+	<rootPolicyRef>rest-endpoint-policy</rootPolicyRef>
 	<ioProcChain>
 		<!-- XACML/XML processing chain. Replace requestPreproc value with "urn:ow2:authzforce:feature:pdp:request-preproc:xacml-xml:multiple:repeated-attribute-categories-lax" for Multiple Decision Profile 
 			support. -->
 		<requestPreproc>urn:ow2:authzforce:feature:pdp:request-preproc:xacml-xml:default-lax</requestPreproc>
+		<resultPostproc>urn:ow2:authzforce:feature:pdp:result-postproc:xacml-xml:default:ucon</resultPostproc>
 	</ioProcChain>
 	<ioProcChain>
 		<!-- XACML/JSON processing chain. -->

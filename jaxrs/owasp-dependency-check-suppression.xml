@@ -4,4 +4,20 @@
 		<!--See issue #35 on Github -->
 		<cve>CVE-2018-8088</cve>
 	</suppress>
+	<suppress>
+		<!--See issue #35 on Github -->
+		<cve>CVE-2022-22965</cve>
+	</suppress>
+	<suppress>
+		<!--See issue #35 on Github -->
+		<cve> CVE-2022-22950</cve>
+	</suppress>
+	<suppress>
+		<!--See issue #35 on Github -->
+		<cve>CVE-2016-1000027</cve>
+	</suppress>
+	<suppress>
+		<!--See issue #35 on Github -->
+		<gav regex="true">org\.springframework\.security:spring.*</gav>
+	</suppress>
 </suppressions>

@@ -1,0 +1,16 @@
+{
+    // "editor.wordWrap": "bounded",
+    // "editor.wrappingStrategy": "advanced",
+    // "editor.rulers": [
+    //     150,
+    //     200
+    // ],
+    "[xml]": {
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.rulers": [
+            120
+        ],
+        "editor.autoClosingBrackets": "never",
+        "files.trimFinalNewlines": true
+    }
+}

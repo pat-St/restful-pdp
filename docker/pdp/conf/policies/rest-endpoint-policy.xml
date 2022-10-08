@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Policy xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PolicyId="rest-endpoint-policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable" Version="0.1.0">
+    <Description>Usage policies for REST endpoint</Description>
+    <Target></Target>
+    <Rule Effect="Permit" RuleId="rest-endpoint-rule-tryaccess">
+        <Target>
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">tryaccess</AttributeValue>
+                        <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" AttributeId="uconphase" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                    </Match>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">POST</AttributeValue>
+                        <AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                    </Match>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/hello</AttributeValue>
+                        <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:thales:xacml:2.0:resource:sub-resource-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Condition>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-greater-than-or-equal">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-one-and-only">
+                        <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="trust" DataType="http://www.w3.org/2001/XMLSchema#integer"></AttributeDesignator>
+                    </Apply>
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">70</AttributeValue>
+                </Apply>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">9ef41545-e177-4974-9c13-b6fc32d47f1f</AttributeValue>
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+                        <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                    </Apply>
+                </Apply>
+            </Apply>
+        </Condition>
+        <ObligationExpressions>
+            <ObligationExpression ObligationId="urn:oasis:names:tc:xacml:ucon:obligation:session" FulfillOn="Permit">
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:setphase">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ongoing</AttributeValue>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:subject-id">
+                    <AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:resource-id">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:timestamp">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-dateTime" DataType="http://www.w3.org/2001/XMLSchema#dateTime"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:subjectchange">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">5</AttributeValue>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:trustscore">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="trust" DataType="http://www.w3.org/2001/XMLSchema#integer"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+            </ObligationExpression>
+        </ObligationExpressions>
+    </Rule>
+    <Rule Effect="Permit" RuleId="rest-endpoint-rule-ongoing">
+        <Target>
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ongoing</AttributeValue>
+                        <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" AttributeId="uconphase" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Condition>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-greater-than-or-equal">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-one-and-only">
+                        <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="trust" DataType="http://www.w3.org/2001/XMLSchema#integer"></AttributeDesignator>
+                    </Apply>
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">60</AttributeValue>
+                </Apply>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</AttributeValue>
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+                        <AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                    </Apply>
+                </Apply>
+            </Apply>
+        </Condition>
+    </Rule>
+    <Rule Effect="Permit" RuleId="rest-endpoint-rule-endaccess">
+        <Target>
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DELETE</AttributeValue>
+                        <AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Condition>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">9ef41545-e177-4974-9c13-b6fc32d47f1f</AttributeValue>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+                    <AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                </Apply>
+            </Apply>
+        </Condition>
+        <ObligationExpressions>
+            <ObligationExpression ObligationId="urn:oasis:names:tc:xacml:ucon:obligation:session" FulfillOn="Permit">
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:setphase">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">post</AttributeValue>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:subject-id">
+                    <AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:resource-id">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:timestamp">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-dateTime" DataType="http://www.w3.org/2001/XMLSchema#dateTime"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:subjectchange">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">5</AttributeValue>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:trustscore">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="trust" DataType="http://www.w3.org/2001/XMLSchema#integer"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+            </ObligationExpression>
+        </ObligationExpressions>
+    </Rule>
+    <Rule Effect="Deny" RuleId="rest-endpoint-rule-ongoing-invalid">
+        <Target>
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ongoing</AttributeValue>
+                        <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" AttributeId="uconphase" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Condition>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</AttributeValue>
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+                        <AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                    </Apply>
+                </Apply>
+            </Apply>
+        </Condition>
+        <ObligationExpressions>
+            <ObligationExpression ObligationId="urn:oasis:names:tc:xacml:ucon:obligation:session" FulfillOn="Deny">
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:setphase">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ongoing</AttributeValue>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:subject-id">
+                    <AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:resource-id">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:timestamp">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-dateTime" DataType="http://www.w3.org/2001/XMLSchema#dateTime"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:subjectchange">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">-2</AttributeValue>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:trustscore">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="trust" DataType="http://www.w3.org/2001/XMLSchema#integer"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+            </ObligationExpression>
+        </ObligationExpressions>
+    </Rule>
+    <Rule Effect="Deny" RuleId="rest-endpoint-rule-not-applied">
+        <ObligationExpressions>
+            <ObligationExpression ObligationId="urn:oasis:names:tc:xacml:ucon:obligation:invalid" FulfillOn="Deny">
+                <!--                <AttributeAssignmentExpression-->
+                <!--                        AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:setphase">-->
+                <!--                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">post</AttributeValue>-->
+                <!--                </AttributeAssignmentExpression>-->
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:subject-id">
+                    <AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:resource-id">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:timestamp">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-dateTime" DataType="http://www.w3.org/2001/XMLSchema#dateTime"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+                <!--                <AttributeAssignmentExpression-->
+                <!--                        AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:subjectchange">-->
+                <!--                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">-5</AttributeValue>-->
+                <!--                </AttributeAssignmentExpression>-->
+                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:trustscore">
+                    <AttributeDesignator MustBePresent="true" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="trust" DataType="http://www.w3.org/2001/XMLSchema#integer"></AttributeDesignator>
+                </AttributeAssignmentExpression>
+            </ObligationExpression>
+        </ObligationExpressions>
+        <!--        <ObligationExpressions>-->
+        <!--            <ObligationExpression-->
+        <!--                    ObligationId="urn:oasis:names:tc:xacml:ucon:obligation:session"-->
+        <!--                    FulfillOn="Deny">-->
+        <!--                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:setphase">-->
+        <!--                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ongoing</AttributeValue>-->
+        <!--                </AttributeAssignmentExpression>-->
+        <!--                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:subject-id">-->
+        <!--                    <AttributeDesignator-->
+        <!--                            MustBePresent="false"-->
+        <!--                            Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"-->
+        <!--                            AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id"-->
+        <!--                            DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>-->
+        <!--                </AttributeAssignmentExpression>-->
+        <!--                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:resource-id">-->
+        <!--                    <AttributeDesignator-->
+        <!--                            MustBePresent="true"-->
+        <!--                            Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"-->
+        <!--                            AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id"-->
+        <!--                            DataType="http://www.w3.org/2001/XMLSchema#string"></AttributeDesignator>-->
+        <!--                </AttributeAssignmentExpression>-->
+        <!--                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:timestamp">-->
+        <!--                    <AttributeDesignator-->
+        <!--                            MustBePresent="true"-->
+        <!--                            Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"-->
+        <!--                            AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-dateTime"-->
+        <!--                            DataType="http://www.w3.org/2001/XMLSchema#dateTime"></AttributeDesignator>-->
+        <!--                </AttributeAssignmentExpression>-->
+        <!--                                <AttributeAssignmentExpression-->
+        <!--                                        AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:subjectchange">-->
+        <!--                                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">-2</AttributeValue>-->
+        <!--                                </AttributeAssignmentExpression>-->
+        <!--                <AttributeAssignmentExpression AttributeId="urn:oasis:names:tc:xacml:3.0:ucon:session:trustscore">-->
+        <!--                    <AttributeDesignator-->
+        <!--                            MustBePresent="true"-->
+        <!--                            Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"-->
+        <!--                            AttributeId="trust"-->
+        <!--                            DataType="http://www.w3.org/2001/XMLSchema#integer"></AttributeDesignator>-->
+        <!--                </AttributeAssignmentExpression>-->
+        <!--            </ObligationExpression>-->
+        <!--        </ObligationExpressions>-->
+    </Rule>
+</Policy>
